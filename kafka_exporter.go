@@ -155,7 +155,7 @@ func NewExporter(opts kafkaOpts, topicFilter string, groupFilter string) (*Expor
 		case "plain":
 		default:
 			return nil, fmt.Errorf(
-				`invalid sasl mechanism "%s": can only be "scram-sha256", "scram-sha512" or "plain"`,
+				`invalid sasl mechanism "%s": can only be "scram-sha256", "scram-sha512", "gssapi" or "plain"`,
 				opts.saslMechanism,
 			)
 		}
@@ -531,7 +531,7 @@ func main() {
 	kingpin.Flag("sasl.handshake", "Only set this to false if using a non-Kafka SASL proxy.").Default("true").BoolVar(&opts.useSASLHandshake)
 	kingpin.Flag("sasl.username", "SASL user name.").Default("").StringVar(&opts.saslUsername)
 	kingpin.Flag("sasl.password", "SASL user password.").Default("").StringVar(&opts.saslPassword)
-	kingpin.Flag("sasl.mechanism", "The SASL SCRAM SHA algorithm sha256 or sha512 as mechanism").Default("").StringVar(&opts.saslMechanism)
+	kingpin.Flag("sasl.mechanism", "The SASL SCRAM SHA algorithm sha256 or sha512 or gssapi as mechanism").Default("").StringVar(&opts.saslMechanism)
 	kingpin.Flag("sasl.service-name", "Service name when using kerberos Auth").Default("").StringVar(&opts.serviceName)
 	kingpin.Flag("sasl.kerberos-config-path", "Kerberos config path").Default("").StringVar(&opts.kerberosConfigPath)
 	kingpin.Flag("sasl.realm", "Kerberos realm").Default("").StringVar(&opts.realm)
